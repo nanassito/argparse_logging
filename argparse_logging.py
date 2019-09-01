@@ -18,6 +18,7 @@ class LogLevelParser(Action):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        logging.basicConfig()
         logging.getLogger().setLevel(self.default)
 
     def __call__(
