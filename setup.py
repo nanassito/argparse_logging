@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="argparse_logging",
-    version="0.1",
+    version="0.3",
     author="Dorian Jaminais",
     author_email="argparse_logging@jaminais.fr",
     description="This is a simple library to configure logging from command "

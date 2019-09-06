@@ -13,24 +13,34 @@ class LogLevel(Enum):
     FATAL = logging.FATAL
 
 
-class LogLevelParser(Action):
-    """Simple argparse action to manage logging level."""
+class LoggingAction(Action):
+    """Abstraction for the different log parsers."""
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self: "LoggingAction", *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         logging.basicConfig()
-        logging.getLogger().setLevel(self.default)
+        self.configure(self.default)
 
     def __call__(
-        self: "LogLevelParser",
+        self: "LoggingAction",
         parser: ArgumentParser,
         namespace: Namespace,
         values: Union[str, Sequence[Any], None],
         option_string: Optional[str] = None,
     ) -> None:
-        assert isinstance(values, LogLevel)
-        logging.getLogger().setLevel(values.value)
-        setattr(namespace, self.dest, values.value)
+        self.configure(values)
+        setattr(namespace, self.dest, values)
+
+    def configure(self: "LoggingAction", level: Any) -> None:
+        raise NotImplementedError
+
+
+class LogLevelAction(LoggingAction):
+    """Simple argparse action to manage logging level."""
+
+    def configure(self: "LogLevelAction", level: int) -> None:
+        assert isinstance(level, LogLevel)
+        logging.getLogger().setLevel(level.value)
 
 
 def add_log_level_argument(
@@ -41,7 +51,34 @@ def add_log_level_argument(
         option_string,
         choices=list(LogLevel),
         type=lambda x: getattr(LogLevel, x),
-        default=LogLevel.INFO.value,
-        action=LogLevelParser,
+        default=LogLevel.INFO,
+        action=LogLevelAction,
         help=f"Logging level ({[l.name for l in LogLevel]}).",
     )
+
+
+class LogFormatAction(LoggingAction):
+    """Configure the logging format."""
+
+    def configure(self: "LogFormatAction", fmt: str) -> None:
+        formatter = logging.Formatter(fmt)
+        for handler in logging.getLogger().handlers:
+            handler.setFormatter(formatter)
+
+
+def add_log_format_argument(
+    parser: ArgumentParser, option_string: str = "--log-format"
+) -> Action:
+    """Add argument and action to configure the log format."""
+    return parser.add_argument(
+        option_string,
+        default="%(asctime)s:%(levelname)s:%(name)s:%(message)s",
+        action=LogFormatAction,
+        help=f"Logging format. "
+        "See https://docs.python.org/3/library/logging.html#logrecord-attributes",
+    )
+
+
+def add_logging_arguments(parser):
+    add_log_format_argument(parser)
+    add_log_level_argument(parser)

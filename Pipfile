@@ -4,15 +4,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-
-[packages]
+pylint = "*"
 mypy = "*"
 flake8 = "*"
 black = "*"
-pytest = "*"
+pytest = "==5.0.1"
 setuptools = "*"
 wheel = "*"
 twine = "*"
+
+[packages]
 
 [requires]
 python_version = "3.7"
