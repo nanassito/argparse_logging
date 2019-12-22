@@ -8,7 +8,7 @@ pylint = "*"
 mypy = "*"
 flake8 = "*"
 black = "*"
-pytest = "==5.0.1"
+pytest = "*"
 setuptools = "*"
 wheel = "*"
 twine = "*"
@@ -16,7 +16,7 @@ twine = "*"
 [packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
 
 [pipenv]
 allow_prereleases = true
