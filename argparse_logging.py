@@ -12,6 +12,9 @@ class LogLevel(Enum):
     CRITICAL = logging.CRITICAL
     FATAL = logging.FATAL
 
+    def __str__(self):
+        return self.name
+
 
 class LoggingAction(Action):
     """Abstraction for the different log parsers."""
@@ -53,7 +56,7 @@ def add_log_level_argument(
         type=lambda x: getattr(LogLevel, x),
         default=LogLevel.INFO,
         action=LogLevelAction,
-        help=f"Logging level ({[l.name for l in LogLevel]}).",
+        help=f"Logging level.",
     )
 
 
