@@ -12,6 +12,7 @@ pytest = "*"
 setuptools = "*"
 wheel = "*"
 twine = "*"
+urllib-ext = "*"
 
 [packages]
 

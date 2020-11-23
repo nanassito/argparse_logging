@@ -36,7 +36,7 @@ You will need `git`, `pipenv`, `python`, `pre-commit`. Then you can set up your 
 ```
 $ git clone git@github.com:nanassito/argparse_logging.git
 $ cd argparse_logging
-$ pipenv update
+$ pipenv update --dev
 ```
 
 Do whatever changes you want. You can run the tests and linting with:
