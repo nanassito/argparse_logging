@@ -1,0 +1,21 @@
+name: pytest
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Install dev dependencies
+        run: pipenv sync --dev
+      - name: run unit tests
+        run: pipenv run pytest
