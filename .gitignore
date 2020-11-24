@@ -7,7 +7,6 @@ __pycache__/
 .vscode/
 
 # Development and release
-Pipfile.lock
 argparse_logging.egg-info/
 build/
 dist/

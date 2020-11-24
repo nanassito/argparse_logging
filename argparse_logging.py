@@ -56,7 +56,7 @@ def add_log_level_argument(
         type=lambda x: getattr(LogLevel, x),
         default=LogLevel.INFO,
         action=LogLevelAction,
-        help=f"Logging level.",
+        help="Logging level.",
     )
 
 
@@ -77,7 +77,7 @@ def add_log_format_argument(
         option_string,
         default="%(asctime)s:%(levelname)s:%(name)s:%(message)s",
         action=LogFormatAction,
-        help=f"Logging format. "
+        help="Logging format."
         "See https://docs.python.org/3/library/logging.html#logrecord-attributes",
     )
 
