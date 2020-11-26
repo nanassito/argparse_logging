@@ -1,13 +1,8 @@
-# Caches
+.vscode
+Pipfile.lock
 __pycache__/
-.pytest_cache/
 .mypy_cache/
-
-# IDEs
-.vscode/
-
-# Development and release
-argparse_logging.egg-info/
-build/
 dist/
-pythonenv3.8/
+build/
+*.egg-info/
+.pytest_cache/
