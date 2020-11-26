@@ -1,11 +1,11 @@
-name: pytest
+name: pypi
 
 on:
   push:
     branches: [master]
 
 jobs:
-  pytest:
+  release:
     runs-on: ubuntu-latest
     env:
       TWINE_USERNAME: nanass
